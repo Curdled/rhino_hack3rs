@@ -34,7 +34,8 @@ class ElementCollector(object):
         self.on_sample_time()
         if self.sampleNumber > 0 and self.sampleNumber % self.totalSamplesPoints == 0:
             self.dataPoint += 1
-            self.sampleCallback(self.dataPoint, self.render_values())
+            self.sampleCallback(self.dataPoint,
+                                self.source_name, self.render_values())
             self.samples = []
         self.schedule.enter(self.samplingPeriod, 1,
                             self.do_something, (sc,))
