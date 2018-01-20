@@ -25,6 +25,8 @@ class MouseCollector(ElementCollector):
         self.screen_height = 1600
         self.screen_width = 2560
 
+        self.click_count = 0
+
         self.listener = mouse.Listener(
             on_move=self.on_move,
             on_click=self.on_click,
@@ -40,8 +42,10 @@ class MouseCollector(ElementCollector):
 
     def on_sample_time(self):
         obj = {'move_data': self.normalise_move_samples(),
-               'scroll_data': self.scroll_data}
+               'scroll_data': self.scroll_data,
+               'click_count': self.click_count}
 
+        self.click_count = 0
         self.save_sample(obj)
 
         #print(self.normalise_move_samples())
@@ -54,6 +58,7 @@ class MouseCollector(ElementCollector):
 
     def on_click(self, x, y, button, _):
         delta = self.get_delta('move')
+        self.click_count += 1
         #self.move_data.append([delta, x/self.screen_width, y/self.screen_height, {'button':str(button)}])
         self.move_data.append([delta, x/self.screen_width, y/self.screen_height, {}])
 

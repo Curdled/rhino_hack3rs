@@ -17,7 +17,6 @@ class KeyboardCollector(ElementCollector):
 
     def on_press(self, key):
         key_str = str(key)
-        print(key)
         if key_str in self.keyboardData.keys():
             self.keyboardData[key_str] = self.keyboardData[key_str]+1
         else:
